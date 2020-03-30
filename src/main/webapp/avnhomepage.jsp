@@ -52,7 +52,6 @@ color:white;
 <a href="" style="color: white;font-size: 20px;position: absolute;left:71px;">View</a><br>
 <a href="" style="color: white;font-size: 20px;position: absolute;left:54px;">Configure</a><br>
 </section>
-<!---->
 <section class="wlp-login-message-content" style="left: 640px;top: 210px;">
 <b><p style="text-align: center;font-size: 25px;">REPAIR</p></b>
 <a href="avncreatepage.jsp" style="color: white;font-size: 20px;position: absolute;left:71px;">Create</a><br>
