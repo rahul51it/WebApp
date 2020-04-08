@@ -10,7 +10,7 @@ node {
     	}
     
     	stage('Code Checkout & Build') {
-        	git url: 'https://github.com/barath147/webapp.git'
+        	git url: 'https://github.com/rahul51it/webapp.git'
 		sh 'mvn clean install'
 		slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> GitHub Checkout and Maven Build Complete", tokenCredentialId: 'SLACK-TOKEN'
     	}
@@ -25,7 +25,7 @@ node {
 	}
 	
 	stage('DeployAppTo QA') {
-		deploy adapters: [tomcat7(credentialsId: 'TOMCAT-CREDS', path: '', url: 'http://3.21.154.146:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
+		deploy adapters: [tomcat7(credentialsId: 'TOMCAT-CREDS', path: '', url: 'http://3.14.3.150:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
 		slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> QA Deployment Complete", tokenCredentialId: 'SLACK-TOKEN'
 	}
 	
@@ -44,7 +44,7 @@ node {
 	}
 	
 	stage('DeployAppTo PROD') {
-		deploy adapters: [tomcat7(credentialsId: 'TOMCAT-CREDS', path: '', url: 'http://18.191.219.231:8080')], contextPath: '/ProdWebapp', onFailure: false, war: '**/*.war'
+		deploy adapters: [tomcat7(credentialsId: 'TOMCAT-CREDS', path: '', url: 'http://13.59.86.192:8080')], contextPath: '/ProdWebapp', onFailure: false, war: '**/*.war'
 		slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> PROD Deployment Complete", tokenCredentialId: 'SLACK-TOKEN'
 	}
 	
