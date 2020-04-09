@@ -24,7 +24,7 @@ node {
 		slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> SonarQube Static Code Analysis Scan Complete", tokenCredentialId: 'SLACK-TOKEN'
 	}
 	
-	stage('DeployAppTo QA') {
+	stage('DeployApp To QA') {
 		deploy adapters: [tomcat7(credentialsId: 'TOMCAT-CREDS', path: '', url: 'http://3.14.3.150:8080')], contextPath: '/QAWebapp', onFailure: false, war: '**/*.war'
 		slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> QA Deployment Complete", tokenCredentialId: 'SLACK-TOKEN'
 	}
