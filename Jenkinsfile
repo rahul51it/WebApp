@@ -57,11 +57,8 @@ node {
 	
     	stage('Publish Build Info') {
         	slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> Pipeline Complete", tokenCredentialId: 'SLACK-TOKEN'
-			
-			post {
-				always {
-					jiraSendBuildInfo site: 'devopsggbcs.atlassian.net'
-				}
+		jiraSendBuildInfo site: 'devopsggbcs.atlassian.net'
+		
     	}
     }
 }
