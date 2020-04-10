@@ -10,7 +10,7 @@ node {
     	}
     
     	stage('Code Checkout & Build') {
-        	git url: 'https://github.com/rahul51it/WebApp.git'
+        	git branch: "${env.BRANCH_NAME}", credentialsId: 'GIT', url: 'https://github.com/rahul51it/WebApp.git'
 		sh 'mvn clean install'
 		slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> GitHub Checkout and Maven Build Complete", tokenCredentialId: 'SLACK-TOKEN'
     	}
@@ -57,6 +57,6 @@ node {
 	
     	stage('Publish Build Info') {
         	slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> Pipeline Complete", tokenCredentialId: 'SLACK-TOKEN'
-		jiraSendBuildInfo branch: 'DEV-1', site: 'devopsggbcs.atlassian.net'		
+		jiraSendBuildInfo branch: "${env.BRANCH_NAME}", site: 'devopsggbcs.atlassian.net'		
     	}
     }
