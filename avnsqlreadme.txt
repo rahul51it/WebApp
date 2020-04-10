@@ -17,7 +17,7 @@ INSERT INTO public.avn(product, pdesc, cont, datee, statuss ) VALUES ('DIGITALTV
 INSERT INTO public.avn(pdesc) VALUES ('NOT WORKING') RETURNING *;
 INSERT INTO public.avn(cont) VALUES ('9884570793') RETURNING *;
 INSERT INTO public.avn(datee) VALUES ('20/03/2017') RETURNING *;
-INSERT INTO public.avn(statuss) VALUES ('NEW') RETURNING *;
+INSERT INTO public.avn(statuss) VALUES ('NEW ') RETURNING *;
 
 delete FROM public.avn;
 
