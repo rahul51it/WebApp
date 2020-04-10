@@ -10,7 +10,7 @@ node {
     	}
     
     	stage('Code Checkout & Build') {
-        	git url: 'https://github.com/rahul51it/webapp.git'
+        	git url: 'https://github.com/rahul51it/WebApp.git'
 		sh 'mvn clean install'
 		slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> GitHub Checkout and Maven Build Complete", tokenCredentialId: 'SLACK-TOKEN'
     	}
