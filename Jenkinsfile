@@ -1,5 +1,5 @@
 node {
-	stage('Initialize Pipeline') {
+	stage('Pipeline Init') {
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '10')), pipelineTriggers([githubPush(), pollSCM('')])])
 		server = Artifactory.server "artifactory"
         	rtMaven = Artifactory.newMavenBuild()
@@ -10,7 +10,7 @@ node {
     	}
     
     	stage('Code Checkout & Build') {
-        	git url: 'https://github.com/rahul51it/webapp.git'
+        	git url: 'https://github.com/rahul51it/WebApp.git'
 		sh 'mvn clean install'
 		slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> GitHub Checkout and Maven Build Complete", tokenCredentialId: 'SLACK-TOKEN'
     	}
@@ -57,11 +57,6 @@ node {
 	
     	stage('Publish Build Info') {
         	slackSend channel: 'devops-case-study-group', failOnError: true, message: "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) ==>> Pipeline Complete", tokenCredentialId: 'SLACK-TOKEN'
-			
-			post {
-				always {
-					jiraSendBuildInfo site: 'devopsggbcs.atlassian.net'
-				}
+		jiraSendBuildInfo branch: 'DEV-1', site: 'devopsggbcs.atlassian.net'		
     	}
     }
-}
